@@ -1,0 +1,9 @@
+AWS Lambda is a serverless compute service used to run code without managing servers.
+
+Amazon S3 is object storage commonly used for files, datasets, model artifacts, logs, and static assets.
+
+Amazon SageMaker can host machine learning models as endpoints for real-time inference.
+
+CloudWatch is used for logs, metrics, alarms, and operational observability.
+
+IAM controls permissions for AWS services. Production agents that call AWS APIs should use least-privilege IAM roles.

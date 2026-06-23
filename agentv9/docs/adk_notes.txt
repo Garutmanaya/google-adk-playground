@@ -1,0 +1,9 @@
+Google ADK is an agent development framework for building AI agents with tools, sessions, memory, and multi-agent workflows.
+
+An ADK Agent defines the model, instructions, description, and tools available to the agent.
+
+ADK tools are Python functions that the agent can call when it needs external information or actions.
+
+Session memory is based on conversation history during the current session. Long-term memory requires external storage such as JSON, SQLite, Redis, or a database.
+
+RAG means Retrieval-Augmented Generation. The agent retrieves relevant information from documents and uses that context to answer the user.
