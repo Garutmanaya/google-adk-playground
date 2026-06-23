@@ -1,10 +1,10 @@
 # Google ADK Learning Playground
 
-## Purpose
+# Purpose
 
-This repository contains progressive hands-on examples for learning **Google ADK (Agent Development Kit)** using simple, practical use cases.
+This repository contains progressive hands-on examples for learning **Google ADK (Agent Development Kit)** using practical, easy-to-understand use cases.
 
-The goal is to understand major ADK concepts step by step:
+The objective is to understand major ADK concepts step by step:
 
 * Basic Agents
 * Tools
@@ -12,13 +12,13 @@ The goal is to understand major ADK concepts step by step:
 * RAG
 * Sequential Workflows
 * Parallel Workflows
-* Routing
-* Supervisor Patterns
+* Router Agents
+* Supervisor Agents
 * Reflection Loops
 * Human-in-the-loop
-* A2A Communication
+* Agent-to-Agent (A2A)
 
-Each use case is isolated into a separate agent folder:
+Each use case is implemented as a separate agent version:
 
 ```bash
 agentv1/
@@ -27,7 +27,7 @@ agentv2/
 agentv16/
 ```
 
-Each version introduces exactly one new ADK concept.
+Each version introduces exactly one major ADK concept.
 
 ---
 
@@ -86,7 +86,7 @@ uv run adk web .
 uv run adk run agentv1
 ```
 
-Replace `agentv1` with any version.
+Replace `agentv1` with any agent version.
 
 ---
 
@@ -94,20 +94,24 @@ Replace `agentv1` with any version.
 
 ---
 
-## agentv1 — Basic Agent
+# agentv1 — Basic Agent
 
-### Use Case
+## Use Case
 
-Simple single ADK agent.
+Simplest possible ADK agent.
 
-### Concepts
+## Why It Matters
+
+Introduces minimum required ADK structure.
+
+## Key Concepts
 
 * Agent
 * Model
-* Instructions
+* Instruction
 * root_agent
 
-### Test
+## Test Examples
 
 ```text
 What is AI?
@@ -115,38 +119,48 @@ What is AI?
 
 ---
 
-## agentv2 — Runtime Metadata Agent
+# agentv2 — Runtime Metadata Agent
 
-### Use Case
+## Use Case
 
-Agent knows runtime metadata like version and model.
+Agent becomes aware of runtime metadata.
 
-### Concepts
+## Why It Matters
+
+LLMs do not know runtime config automatically.
+
+## Key Concepts
 
 * Runtime metadata
 * Prompt injection
+* Context awareness
 
-### Test
+## Test Examples
 
 ```text
 What model are you using?
+What version are you?
 ```
 
 ---
 
-## agentv3 — Structured Output Agent
+# agentv3 — Structured Output Agent
 
-### Use Case
+## Use Case
 
-Agent returns machine-readable JSON output.
+Agent returns JSON output.
 
-### Concepts
+## Why It Matters
+
+Essential for orchestration and automation.
+
+## Key Concepts
 
 * Structured output
-* Classification
 * JSON response
+* Classification
 
-### Test
+## Test Examples
 
 ```text
 Write Python code for binary search
@@ -154,18 +168,22 @@ Write Python code for binary search
 
 ---
 
-## agentv4 — Single Tool Agent
+# agentv4 — Single Tool Agent
 
-### Use Case
+## Use Case
 
-Agent uses one tool.
+Agent uses one external tool.
 
-### Concepts
+## Why It Matters
+
+Introduces tool invocation lifecycle.
+
+## Key Concepts
 
 * Tool registration
 * Tool calling
 
-### Test
+## Test Examples
 
 ```text
 What is current time?
@@ -173,42 +191,47 @@ What is current time?
 
 ---
 
-## agentv5 — Multi Tool Agent
+# agentv5 — Multi Tool Agent
 
-### Use Case
+## Use Case
 
 Agent selects between multiple tools.
 
-### Concepts
+## Why It Matters
+
+Real agents rarely use just one tool.
+
+## Key Concepts
 
 * Tool routing
 * Parameter extraction
 
-### Test
+## Test Examples
 
 ```text
 Calculate 25 * 88
-```
-
-```text
 Weather in New York
 ```
 
 ---
 
-## agentv6 — Tool Error Handling
+# agentv6 — Tool Error Handling
 
-### Use Case
+## Use Case
 
 Agent handles tool failures gracefully.
 
-### Concepts
+## Why It Matters
 
-* Tool failure
-* Retry patterns
+Production tools fail frequently.
+
+## Key Concepts
+
 * Error handling
+* Tool failures
+* Retry patterns
 
-### Test
+## Test Examples
 
 ```text
 Weather in London
@@ -216,89 +239,101 @@ Weather in London
 
 ---
 
-## agentv7 — Session Memory Agent
+# agentv7 — Session Memory Agent
 
-### Use Case
+## Use Case
 
-Agent remembers within same conversation.
+Agent remembers conversation within session.
 
-### Concepts
+## Why It Matters
+
+Useful for short-term conversational memory.
+
+## Key Concepts
 
 * Session memory
 * Conversation history
 
-### Test
+## Test Examples
 
 ```text
 My name is Sam
-```
-
-```text
 What is my name?
 ```
 
 ---
 
-## agentv8 — Long-Term Memory Agent
+# agentv8 — Long-Term Memory Agent
 
-### Use Case
+## Use Case
 
-Agent stores persistent memory in JSON.
+Agent stores persistent memory.
 
-### Concepts
+## Why It Matters
 
+Enables personalization across sessions.
+
+## Key Concepts
+
+* Persistent memory
 * Memory tools
-* Persistent storage
+* JSON storage
 
-### Test
+## Test Examples
 
 ```text
 Remember my favorite language is Python
-```
-
-```text
 What is my favorite language?
 ```
 
 ---
 
-## agentv9 — RAG Agent
+# agentv9 — RAG Agent
 
-### Use Case
+## Use Case
 
 Agent retrieves knowledge from local documents.
 
-### Concepts
+## Why It Matters
+
+Foundation for enterprise AI agents.
+
+## Key Concepts
 
 * Retrieval
 * Local RAG
 
-### Test
+## Test Examples
 
 ```text
 What is RAG?
+What is ADK?
 ```
 
 ---
 
-## agentv10 — Sequential Workflow Agent
+# agentv10 — Sequential Workflow Agent
 
-### Use Case
+## Use Case
 
-Fixed workflow execution.
+Fixed execution pipeline.
 
-### Concepts
+## Why It Matters
 
-* SequentialAgent
-* Deterministic pipelines
+Best for deterministic workflows.
 
-### Flow
+## Workflow
 
 ```text
 Planner → Writer → Reviewer
 ```
 
-### Test
+## Key Concepts
+
+* SequentialAgent
+* Fixed pipelines
+
+## Test Examples
 
 ```text
 Explain ADK in simple terms
@@ -306,18 +341,17 @@ Explain ADK in simple terms
 
 ---
 
-## agentv11 — Parallel Workflow Agent
+# agentv11 — Parallel Workflow Agent
 
-### Use Case
+## Use Case
 
-Independent agents run in parallel.
+Independent agents run simultaneously.
 
-### Concepts
+## Why It Matters
 
-* ParallelAgent
-* Concurrent execution
+Reduces latency for independent tasks.
 
-### Flow
+## Workflow
 
 ```text
 Idea Agent
@@ -325,7 +359,12 @@ Architecture Agent
 Risk Agent
 ```
 
-### Test
+## Key Concepts
+
+* ParallelAgent
+* Concurrent execution
+
+## Test Examples
 
 ```text
 Suggest multi-agent project
@@ -333,24 +372,28 @@ Suggest multi-agent project
 
 ---
 
-## agentv12 — Router Agent
+# agentv12 — Router Agent
 
-### Use Case
+## Use Case
 
-Route requests to best specialist agent.
+Route requests to best specialist.
 
-### Concepts
+## Why It Matters
 
-* Routing
-* Dynamic delegation
+Useful for multi-domain systems.
 
-### Flow
+## Workflow
 
 ```text
 Router → Specialist Agent
 ```
 
-### Test
+## Key Concepts
+
+* Routing
+* Dynamic delegation
+
+## Test Examples
 
 ```text
 What is RAG?
@@ -358,18 +401,31 @@ What is RAG?
 
 ---
 
-## agentv13 — Supervisor Agent
+# agentv13 — Supervisor Agent
 
-### Use Case
+## Use Case
 
-Supervisor dynamically chooses required agents.
+Supervisor decides which agents to involve.
 
-### Concepts
+## Why It Matters
+
+Enables adaptive workflows.
+
+## Workflow
+
+```text
+Supervisor
+ ├── Planner
+ ├── Executor
+ └── Validator
+```
+
+## Key Concepts
 
 * Conditional orchestration
-* Dynamic workflow
+* Adaptive execution
 
-### Test
+## Test Examples
 
 ```text
 Design and review smart parking project
@@ -377,24 +433,28 @@ Design and review smart parking project
 
 ---
 
-## agentv14 — Reflection Agent
+# agentv14 — Reflection Agent
 
-### Use Case
+## Use Case
 
-Agent improves output using critique.
+Agent improves output using self-critique.
 
-### Concepts
+## Why It Matters
 
-* Reflection
-* Self-improvement loop
+Useful for iterative improvement.
 
-### Flow
+## Workflow
 
 ```text
 Generate → Critique → Improve
 ```
 
-### Test
+## Key Concepts
+
+* Reflection
+* Self-improvement
+
+## Test Examples
 
 ```text
 Design smart parking multi-agent system
@@ -402,24 +462,28 @@ Design smart parking multi-agent system
 
 ---
 
-## agentv15 — Human-in-the-Loop Agent
+# agentv15 — Human-in-the-Loop Agent
 
-### Use Case
+## Use Case
 
 Sensitive actions require approval.
 
-### Concepts
+## Why It Matters
 
-* Human approval
-* Safe execution
+Critical for safe production systems.
 
-### Flow
+## Workflow
 
 ```text
 Plan → Approval → Execute
 ```
 
-### Test
+## Key Concepts
+
+* Human approval
+* Safe execution
+
+## Test Examples
 
 ```text
 Deploy app to AWS
@@ -427,18 +491,17 @@ Deploy app to AWS
 
 ---
 
-## agentv16 — A2A Multi-Agent System
+# agentv16 — A2A Multi-Agent System
 
-### Use Case
+## Use Case
 
-Coordinator communicates with multiple specialist agents.
+Coordinator interacts with multiple specialist agents.
 
-### Concepts
+## Why It Matters
 
-* Agent-to-Agent communication
-* Distributed orchestration
+Enables distributed multi-agent systems.
 
-### Flow
+## Workflow
 
 ```text
 Coordinator
@@ -448,7 +511,12 @@ Coordinator
  └── Risk Agent
 ```
 
-### Test
+## Key Concepts
+
+* A2A
+* Distributed orchestration
+
+## Test Examples
 
 ```text
 Find best parking near downtown
@@ -456,9 +524,88 @@ Find best parking near downtown
 
 ---
 
-# Learning Progression
+# Choosing the Right Agent Pattern
 
-Recommended order:
+Selecting the correct orchestration pattern is critical in production AI systems.
+
+---
+
+## SequentialAgent → Best for Fixed Pipelines
+
+Use when execution order is deterministic.
+
+Example:
+
+```text
+Plan → Execute → Review
+```
+
+Best for:
+
+* ETL workflows
+* CI/CD pipelines
+* Approval chains
+
+Advantages:
+
+* Predictable
+* Easy to debug
+* Easy to test
+
+---
+
+## Supervisor Agent → Best for Adaptive Workflows
+
+Use when workflow changes based on task complexity.
+
+Example:
+
+```text
+Simple task → Executor only
+Complex task → Planner + Executor + Validator
+```
+
+Best for:
+
+* Complex reasoning
+* Dynamic workflows
+* Adaptive orchestration
+
+Advantages:
+
+* Flexible
+* Intelligent delegation
+* Cost optimized
+
+---
+
+## ParallelAgent → Best for Independent Tasks
+
+Use when tasks are independent.
+
+Example:
+
+```text
+Cost Analysis
+Security Analysis
+Performance Analysis
+```
+
+Best for:
+
+* Independent analysis
+* Multi-perspective evaluation
+* Latency optimization
+
+Advantages:
+
+* Fast
+* Scalable
+* Efficient
+
+---
+
+# Recommended Learning Order
 
 ```text
 1 → 4 → 5 → 7 → 8 → 9 → 10 → 11 → 12 → 13 → 14 → 15 → 16
@@ -476,5 +623,4 @@ Advanced topics:
 * Streaming Agents
 * Async Agents
 * Multi-modal Agents
-* Production Multi-Agent Systems
-
+* Production Multi-Agent Platforms
