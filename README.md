@@ -2,32 +2,38 @@
 
 # Purpose
 
-This repository contains progressive hands-on examples for learning **Google ADK (Agent Development Kit)** using practical, easy-to-understand use cases.
+This repository contains progressive hands-on examples for learning **Google ADK (Agent Development Kit)** using practical and progressively advanced use cases.
 
-The objective is to understand major ADK concepts step by step:
+The objective is to understand ADK from beginner to production-level patterns.
+
+Topics covered:
 
 * Basic Agents
-* Tools
+* Tool Calling
 * Memory
 * RAG
 * Sequential Workflows
 * Parallel Workflows
-* Router Agents
-* Supervisor Agents
+* Router / Supervisor Agents
 * Reflection Loops
 * Human-in-the-loop
-* Agent-to-Agent (A2A)
+* Agent-to-Agent Communication (A2A)
+* Shared Context Store
+* MCP Integration
+* Streaming
+* Async Long Running Agents
+* Multi-modal Agents
 
-Each use case is implemented as a separate agent version:
+Each use case is implemented as an isolated agent version.
 
 ```bash
 agentv1/
 agentv2/
 ...
-agentv16/
+agentv22/
 ```
 
-Each version introduces exactly one major ADK concept.
+Each version introduces one major concept.
 
 ---
 
@@ -44,8 +50,8 @@ Each version introduces exactly one major ADK concept.
 ## Create Project
 
 ```bash
-uv init adk-learning
-cd adk-learning
+uv init google-adk-playground
+cd google-adk-playground
 ```
 
 Install dependencies:
@@ -54,19 +60,27 @@ Install dependencies:
 uv add google-adk litellm python-dotenv
 ```
 
+Optional dependencies:
+
+```bash
+uv add "google-adk[a2a]"
+uv add uvicorn
+uv add mcp
+```
+
 ---
 
 ## Configure Environment
 
 Create `.env`
 
-```bash
+```env
 OPENAI_API_KEY=your_key_here
 ```
 
 or
 
-```bash
+```env
 GOOGLE_API_KEY=your_key_here
 ```
 
@@ -86,8 +100,6 @@ uv run adk web .
 uv run adk run agentv1
 ```
 
-Replace `agentv1` with any agent version.
-
 ---
 
 # Use Cases
@@ -96,322 +108,211 @@ Replace `agentv1` with any agent version.
 
 # agentv1 — Basic Agent
 
-## Use Case
+### Purpose
 
 Simplest possible ADK agent.
 
-## Why It Matters
-
-Introduces minimum required ADK structure.
-
-## Key Concepts
+### Key Concepts
 
 * Agent
 * Model
-* Instruction
-* root_agent
+* Instructions
 
-## Test Examples
+### Test
 
-```text
-What is AI?
-```
+* What is AI?
 
 ---
 
 # agentv2 — Runtime Metadata Agent
 
-## Use Case
+### Purpose
 
 Agent becomes aware of runtime metadata.
 
-## Why It Matters
-
-LLMs do not know runtime config automatically.
-
-## Key Concepts
+### Key Concepts
 
 * Runtime metadata
-* Prompt injection
-* Context awareness
+* Context injection
 
-## Test Examples
+### Test
 
-```text
-What model are you using?
-What version are you?
-```
+* What model are you using?
 
 ---
 
 # agentv3 — Structured Output Agent
 
-## Use Case
+### Purpose
 
-Agent returns JSON output.
+Return machine-readable output.
 
-## Why It Matters
+### Key Concepts
 
-Essential for orchestration and automation.
+* JSON output
+* Structured response
 
-## Key Concepts
+### Test
 
-* Structured output
-* JSON response
-* Classification
-
-## Test Examples
-
-```text
-Write Python code for binary search
-```
+* Generate JSON response for binary search explanation
 
 ---
 
 # agentv4 — Single Tool Agent
 
-## Use Case
+### Purpose
 
 Agent uses one external tool.
 
-## Why It Matters
-
-Introduces tool invocation lifecycle.
-
-## Key Concepts
+### Key Concepts
 
 * Tool registration
-* Tool calling
+* Tool invocation
 
-## Test Examples
+### Test
 
-```text
-What is current time?
-```
+* What is current time?
 
 ---
 
 # agentv5 — Multi Tool Agent
 
-## Use Case
+### Purpose
 
-Agent selects between multiple tools.
+Agent chooses between multiple tools.
 
-## Why It Matters
-
-Real agents rarely use just one tool.
-
-## Key Concepts
+### Key Concepts
 
 * Tool routing
-* Parameter extraction
+* Tool selection
 
-## Test Examples
+### Test
 
-```text
-Calculate 25 * 88
-Weather in New York
-```
+* Calculate 25 * 88
+* Weather in New York
 
 ---
 
 # agentv6 — Tool Error Handling
 
-## Use Case
+### Purpose
 
-Agent handles tool failures gracefully.
+Handle tool failures gracefully.
 
-## Why It Matters
-
-Production tools fail frequently.
-
-## Key Concepts
+### Key Concepts
 
 * Error handling
-* Tool failures
 * Retry patterns
-
-## Test Examples
-
-```text
-Weather in London
-```
 
 ---
 
 # agentv7 — Session Memory Agent
 
-## Use Case
+### Purpose
 
-Agent remembers conversation within session.
+Short-term memory within session.
 
-## Why It Matters
-
-Useful for short-term conversational memory.
-
-## Key Concepts
+### Key Concepts
 
 * Session memory
 * Conversation history
 
-## Test Examples
+### Test
 
-```text
-My name is Sam
-What is my name?
-```
+* My name is Sam
+* What is my name?
 
 ---
 
 # agentv8 — Long-Term Memory Agent
 
-## Use Case
+### Purpose
 
-Agent stores persistent memory.
+Persistent memory across sessions.
 
-## Why It Matters
-
-Enables personalization across sessions.
-
-## Key Concepts
+### Key Concepts
 
 * Persistent memory
 * Memory tools
-* JSON storage
-
-## Test Examples
-
-```text
-Remember my favorite language is Python
-What is my favorite language?
-```
 
 ---
 
 # agentv9 — RAG Agent
 
-## Use Case
+### Purpose
 
-Agent retrieves knowledge from local documents.
+Knowledge retrieval from local docs.
 
-## Why It Matters
-
-Foundation for enterprise AI agents.
-
-## Key Concepts
+### Key Concepts
 
 * Retrieval
-* Local RAG
-
-## Test Examples
-
-```text
-What is RAG?
-What is ADK?
-```
+* RAG
 
 ---
 
 # agentv10 — Sequential Workflow Agent
 
-## Use Case
+### Purpose
 
-Fixed execution pipeline.
+Fixed workflow pipeline.
 
-## Why It Matters
-
-Best for deterministic workflows.
-
-## Workflow
+### Workflow
 
 ```text
 Planner → Writer → Reviewer
 ```
 
-## Key Concepts
+### Key Concepts
 
 * SequentialAgent
-* Fixed pipelines
-
-## Test Examples
-
-```text
-Explain ADK in simple terms
-```
 
 ---
 
 # agentv11 — Parallel Workflow Agent
 
-## Use Case
+### Purpose
 
-Independent agents run simultaneously.
+Independent tasks executed in parallel.
 
-## Why It Matters
-
-Reduces latency for independent tasks.
-
-## Workflow
+### Workflow
 
 ```text
-Idea Agent
-Architecture Agent
-Risk Agent
+Task A
+Task B
+Task C
 ```
 
-## Key Concepts
+### Key Concepts
 
 * ParallelAgent
-* Concurrent execution
-
-## Test Examples
-
-```text
-Suggest multi-agent project
-```
 
 ---
 
 # agentv12 — Router Agent
 
-## Use Case
+### Purpose
 
-Route requests to best specialist.
+Route requests to specialist agents.
 
-## Why It Matters
-
-Useful for multi-domain systems.
-
-## Workflow
+### Workflow
 
 ```text
-Router → Specialist Agent
+Router → Specialist
 ```
 
-## Key Concepts
+### Key Concepts
 
-* Routing
-* Dynamic delegation
-
-## Test Examples
-
-```text
-What is RAG?
-```
+* Dynamic routing
 
 ---
 
 # agentv13 — Supervisor Agent
 
-## Use Case
+### Purpose
 
-Supervisor decides which agents to involve.
+Adaptive orchestration.
 
-## Why It Matters
-
-Enables adaptive workflows.
-
-## Workflow
+### Workflow
 
 ```text
 Supervisor
@@ -420,113 +321,175 @@ Supervisor
  └── Validator
 ```
 
-## Key Concepts
+### Key Concepts
 
 * Conditional orchestration
-* Adaptive execution
-
-## Test Examples
-
-```text
-Design and review smart parking project
-```
 
 ---
 
 # agentv14 — Reflection Agent
 
-## Use Case
+### Purpose
 
-Agent improves output using self-critique.
+Self-improving workflow.
 
-## Why It Matters
-
-Useful for iterative improvement.
-
-## Workflow
+### Workflow
 
 ```text
 Generate → Critique → Improve
 ```
 
-## Key Concepts
+### Key Concepts
 
-* Reflection
-* Self-improvement
-
-## Test Examples
-
-```text
-Design smart parking multi-agent system
-```
+* Reflection loop
 
 ---
 
 # agentv15 — Human-in-the-Loop Agent
 
-## Use Case
+### Purpose
 
-Sensitive actions require approval.
+Approval required for sensitive actions.
 
-## Why It Matters
-
-Critical for safe production systems.
-
-## Workflow
+### Workflow
 
 ```text
 Plan → Approval → Execute
 ```
 
-## Key Concepts
+### Key Concepts
 
 * Human approval
-* Safe execution
-
-## Test Examples
-
-```text
-Deploy app to AWS
-```
 
 ---
 
-# agentv16 — A2A Multi-Agent System
+# agentv16 — A2A Simulation Agent
 
-## Use Case
+### Purpose
 
-Coordinator interacts with multiple specialist agents.
+Local A2A simulation using tools.
 
-## Why It Matters
+### Key Concepts
 
-Enables distributed multi-agent systems.
+* Agent-to-Agent collaboration
 
-## Workflow
+---
+
+# agentv17 — Shared Context Store Agent
+
+### Purpose
+
+Multiple agents share common state.
+
+### Key Concepts
+
+* Shared context
+* State-driven workflows
+
+### Lessons Learned
+
+Shared state is useful, but critical state mutation should be controlled by deterministic code.
+
+---
+
+# agentv18 — MCP Tool Agent
+
+### Purpose
+
+Connect ADK with external MCP tools.
+
+### Key Concepts
+
+* MCP
+* External tool servers
+
+### Lessons Learned
+
+MCP concept is valuable, but setup/debugging can be environment-specific.
+
+---
+
+# agentv19 — Real Remote A2A Agent
+
+### Purpose
+
+Real distributed multi-agent system.
+
+### Workflow
 
 ```text
-Coordinator
- ├── Availability Agent
- ├── Pricing Agent
- ├── Traffic Agent
- └── Risk Agent
+Coordinator Agent
+      ↓
+ Remote Agent Server
 ```
 
-## Key Concepts
+### Key Concepts
 
-* A2A
-* Distributed orchestration
+* RemoteA2AAgent
+* Distributed systems
 
-## Test Examples
+### Important Lessons
+
+* Remote agents are separate services
+* Context is not automatically shared
+* Each remote agent has independent environment/runtime
+
+---
+
+# agentv20 — Streaming Agent
+
+### Purpose
+
+Real-time token/event streaming.
+
+### Key Concepts
+
+* Runner.run_live()
+* Streaming events
+
+### Lessons Learned
+
+Streaming depends heavily on provider and runtime support.
+
+---
+
+# agentv21 — Async Long Running Agent
+
+### Purpose
+
+Handle long-running jobs asynchronously.
+
+### Workflow
 
 ```text
-Find best parking near downtown
+Submit Job → Check Status → Get Result
 ```
+
+### Key Concepts
+
+* Async workflows
+* Job tracking
+
+---
+
+# agentv22 — Multi-modal Agent
+
+### Purpose
+
+Text + image/document reasoning.
+
+### Key Concepts
+
+* Multi-modal models
+* Vision/document understanding
+
+### Lessons Learned
+
+Provider/model support is critical.
 
 ---
 
 # Choosing the Right Agent Pattern
-
-Selecting the correct orchestration pattern is critical in production AI systems.
 
 ---
 
@@ -542,15 +505,9 @@ Plan → Execute → Review
 
 Best for:
 
-* ETL workflows
-* CI/CD pipelines
-* Approval chains
-
-Advantages:
-
-* Predictable
-* Easy to debug
-* Easy to test
+* ETL
+* CI/CD
+* approval workflows
 
 ---
 
@@ -567,15 +524,8 @@ Complex task → Planner + Executor + Validator
 
 Best for:
 
-* Complex reasoning
-* Dynamic workflows
-* Adaptive orchestration
-
-Advantages:
-
-* Flexible
-* Intelligent delegation
-* Cost optimized
+* complex reasoning
+* adaptive workflows
 
 ---
 
@@ -593,34 +543,55 @@ Performance Analysis
 
 Best for:
 
-* Independent analysis
-* Multi-perspective evaluation
-* Latency optimization
-
-Advantages:
-
-* Fast
-* Scalable
-* Efficient
+* parallel evaluation
+* latency optimization
 
 ---
 
 # Recommended Learning Order
 
 ```text
-1 → 4 → 5 → 7 → 8 → 9 → 10 → 11 → 12 → 13 → 14 → 15 → 16
+v1 → v9   : Fundamentals
+v10 → v16 : Workflow orchestration
+v17 → v22 : Production patterns
 ```
 
 ---
 
-# Next Steps
+# Final Recommended Projects
 
-Advanced topics:
+Best real-world projects after completing this learning path:
 
-* Shared Context Store
-* MCP Integration
-* Real Remote A2A
-* Streaming Agents
-* Async Agents
-* Multi-modal Agents
-* Production Multi-Agent Platforms
+### 1. AI CloudOps Multi-Agent Platform
+
+* Incident Agent
+* Metrics Agent
+* Root Cause Agent
+* Remediation Agent
+
+### 2. Smart Parking A2A Platform
+
+* Availability Agent
+* Pricing Agent
+* Traffic Agent
+* Risk Agent
+
+### 3. AI Fitness & Recovery Agent
+
+* Health Agent
+* Recovery Agent
+* Recommendation Agent
+
+---
+
+# Final Takeaways
+
+Core production insights:
+
+* LLM reasoning is powerful but not deterministic
+* Critical operations should use deterministic orchestration
+* Multi-agent systems work best with clear responsibilities
+* Shared context improves collaboration
+* A2A enables distributed agent systems
+* Production agents require strong workflow control
+
